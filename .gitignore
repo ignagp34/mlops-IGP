@@ -1,0 +1,29 @@
+# Datos CSV (grandes, no subir al repositorio)
+train.csv
+test.csv
+
+# Configuración de Claude
+.claude/
+
+# Entornos virtuales
+venv/
+env/
+.env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+*.pyc
+__pycache__/
+
+# Distribución / empaquetado
+dist/
+build/
+*.egg-info/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

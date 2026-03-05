@@ -27,3 +27,6 @@ build/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+CLAUDE.md
+GUIA-git-MLOps.pdf

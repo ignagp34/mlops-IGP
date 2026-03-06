@@ -1,0 +1,97 @@
+════════════════════════════════════════════════════════════
+  🌸  DEMO: Iris Continuous Training API
+════════════════════════════════════════════════════════════
+  Host: http://localhost:8000
+
+────────────────────────────────────────────────────────────
+  RESET - Restaurando modelo base
+────────────────────────────────────────────────────────────
+  ✅  Historial eliminado. Modelo base restaurado.
+
+────────────────────────────────────────────────────────────
+  PASO 0 - Health check
+────────────────────────────────────────────────────────────
+  ✅  Servicio activo. Modelo activo: v1.0-base
+
+────────────────────────────────────────────────────────────
+  PASO 0b - Info modelo base
+────────────────────────────────────────────────────────────
+  ✅  Version activa : v1.0-base
+  ✅  Entrenado el   : 2026-03-06T11:27:53.030148Z
+  ✅  Accuracy       : 0.9667
+  ✅  N muestras     : 120
+  ✅  Algoritmo      : LogisticRegression
+
+  ℹ️   Historial de versiones (1 entradas):
+    🟢 v1.0-base  |  acc=0.9667  |  -  |  policy=-
+
+────────────────────────────────────────────────────────────
+  PASO 1 - Prediccion con el modelo base
+────────────────────────────────────────────────────────────
+  ✅  Prediccion: clase 0 (setosa), version modelo: v1.0-base
+
+────────────────────────────────────────────────────────────
+  PASO 2 - Reentrenamiento con muestras CORRECTAS (any_improvement)
+────────────────────────────────────────────────────────────
+  ℹ️   Enviando 20 muestras bien etiquetadas...
+  ✅  Nuevo modelo ACTIVADO -> version: v2.0-025a74
+  ℹ️   Accuracy nuevo: 1.0000  |  Anterior: 0.9667
+  ℹ️   Politica: any_improvement
+  ℹ️   Razon: Accuracy 1.0000 >= anterior (0.9667)
+  ℹ️   Nuevo modelo activado. Accuracy 1.0000 >= anterior (0.9667)
+
+────────────────────────────────────────────────────────────
+  PASO 3 - Reentrenamiento con muestras RUIDOSAS (any_improvement)
+────────────────────────────────────────────────────────────
+  ℹ️   Enviando 10 muestras con etiquetas erroneas...
+  ✅  Modelo RECHAZADO -> version: v3.0-6efc33
+  ℹ️   Accuracy nuevo: 0.6000  |  Anterior: 1.0000
+  ℹ️   Politica: any_improvement
+  ℹ️   Razon: Accuracy 0.6000 < anterior (1.0000)
+  ℹ️   Modelo NO activado. Accuracy 0.6000 < anterior (1.0000). El modelo activo se mantiene sin cambios.     
+
+────────────────────────────────────────────────────────────
+  PASO 4 - Reentrenamiento con politica MIN_DELTA (delta=0.05)
+────────────────────────────────────────────────────────────
+  ℹ️   Enviando 20 muestras correctas con politica min_delta...
+  ℹ️   Se requiere que accuracy mejore al menos 0.05 sobre el modelo activo.
+  ✅  Nuevo modelo ACTIVADO -> version: v4.0-cab9c3
+  ℹ️   Accuracy nuevo: 1.0000  |  Anterior: 0.6000
+  ℹ️   Politica: min_delta
+  ℹ️   Razon: Accuracy 1.0000 >= umbral (0.6500 = 0.6000 + delta 0.05)
+  ℹ️   Nuevo modelo activado. Accuracy 1.0000 >= umbral (0.6500 = 0.6000 + delta 0.05)
+
+────────────────────────────────────────────────────────────
+  PASO 5 - Reentrenamiento con politica PER_CLASS_F1 (clase=1, versicolor)
+────────────────────────────────────────────────────────────
+  ℹ️   Enviando 20 muestras correctas con politica per_class_f1...
+  ℹ️   Se activa solo si el F1 de versicolor (clase 1) mejora respecto al modelo activo.
+  ✅  Nuevo modelo ACTIVADO -> version: v5.0-887299
+  ℹ️   Accuracy nuevo: 1.0000  |  Anterior: 1.0000
+  ℹ️   Politica: per_class_f1
+  ℹ️   Razon: F1 clase 1 (versicolor): nuevo=1.0000 vs anterior=1.0000
+  ℹ️   Nuevo modelo activado. F1 clase 1 (versicolor): nuevo=1.0000 vs anterior=1.0000
+
+────────────────────────────────────────────────────────────
+  PASO 6 - Prediccion con el modelo final
+────────────────────────────────────────────────────────────
+  ✅  Prediccion: clase 0 (setosa), version modelo: v5.0-887299
+
+────────────────────────────────────────────────────────────
+  RESUMEN FINAL - Historial de versiones
+────────────────────────────────────────────────────────────
+  ✅  Version activa : v5.0-887299
+  ✅  Entrenado el   : 2026-03-06T11:28:08.254553Z
+  ✅  Accuracy       : 1.0000
+  ✅  N muestras     : 60
+  ✅  Algoritmo      : LogisticRegression
+
+  ℹ️   Historial de versiones (5 entradas):
+    🟢 v1.0-base  |  acc=0.9667  |  -  |  policy=-
+    🟢 v2.0-025a74  |  acc=1.0000  |  activado  |  policy=any_improvement
+    🔴 v3.0-6efc33  |  acc=0.6000  |  rechazado  |  policy=any_improvement
+    🟢 v4.0-cab9c3  |  acc=1.0000  |  activado  |  policy=min_delta
+    🟢 v5.0-887299  |  acc=1.0000  |  activado  |  policy=per_class_f1
+
+────────────────────────────────────────────────────────────
+  ✅  Demo completado. Abre http://localhost:8000/docs para explorar la API.

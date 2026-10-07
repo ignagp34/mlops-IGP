@@ -27,3 +27,15 @@ build/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Secretos (LAB6 usa un .env con HF_TOKEN)
+.env
+.env.*
+!.env.example
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Modelos serializados
+models/
